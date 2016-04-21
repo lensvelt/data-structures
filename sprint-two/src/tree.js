@@ -15,7 +15,7 @@ treeMethods.addChild = function(value) {
 
 treeMethods.contains = function(target) {
   var found = false;
-  debugger;
+
   if (this.value === target) {
     found = true;
     return found;
@@ -23,7 +23,7 @@ treeMethods.contains = function(target) {
   if (this.children.length === 0) {
     return false;
   } else {
-    debugger;
+ 
     _.each(this.children, function(child) {
       found = found || child.contains(target);
       return found;
