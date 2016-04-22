@@ -65,12 +65,41 @@ BinarySearchTree.prototype.insert = function(value, current) {
 };
 
 
-BinarySearchTree.prototype.contains = function() {
+BinarySearchTree.prototype.contains = function(value, current) {
+  var currentTree = current ? current : this;
+  var found = false;
 
+  if (currentTree.value === value) {
+    found = true;
+    return found;
+  }
+  if (!currentTree.left && !currentTree.right) {
+    return found;
+  } else {
+    if (value < currentTree.value) {
+      return found = found || this.contains(value, currentTree.left);
+    } else {
+      return found = found || this.contains(value, currentTree.right);
+    }
+  }
+
+  return found;
 };
 
-BinarySearchTree.prototype.depthFirstLog = function() {
+BinarySearchTree.prototype.depthFirstLog = function(callback, current) {
+  var currentTree = current ? current : this;
 
+  callback(currentTree.value);
+  if (!currentTree.left && !currentTree.right) {
+    return;
+  } else {
+    if (currentTree.left) {
+      this.depthFirstLog(callback, currentTree.left);
+    }
+    if (currentTree.right) {
+      this.depthFirstLog(callback, currentTree.right);
+    }
+  }
 };
 
 
