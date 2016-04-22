@@ -1,4 +1,4 @@
-var BinarySearchTree = function(value) {
+/*var BinarySearchTree = function(value) {
   // var new root = original root.left
   // 
 };
@@ -12,9 +12,56 @@ BinarySearchTree.prototype.right = function() {
 };
 
 BinarySearchTree.prototype.insert = function(value) {
-  var currentNode = this.root;
+  var currentTree = this.root;
   // var newBST = new BinarySearchTree(value)
   // originalBST.left = newBST
+};*/
+
+var BinarySearchTree = function(value) {
+  this.parent = null;
+  this.value = value; 
+  this.left = null;
+  this.right = null;
+};
+
+BinarySearchTree.prototype.insert = function(value, current) {
+  var currentTree = current ? current : this;
+  var newTree = new BinarySearchTree(value);
+
+  // if there are no children trees
+  if (!currentTree.left && !currentTree.right) {
+    if (value < currentTree.value) {
+      currentTree.left = newTree;
+      newTree.parent = currentTree;
+      return;
+    } else {
+      currentTree.right = newTree;
+      newTree.parent = currentTree;
+      return;
+    }
+  } else {
+    while (currentTree.left || currentTree.right) {
+      if (value < currentTree.value) {
+        if (currentTree.left) {
+          currentTree = currentTree.left;
+          return this.insert(value, currentTree);
+        } else {
+          currentTree.left = newTree;
+          newTree.parent = currentTree;
+          return;
+        }
+      } else {
+        if (currentTree.right) {
+          currentTree = currentTree.right;
+          return this.insert(value, currentTree);
+        } else {
+          currentTree.right = newTree;
+          newTree.parent = currentTree;
+          return;
+        }
+      }
+    }
+  }
 };
 
 
